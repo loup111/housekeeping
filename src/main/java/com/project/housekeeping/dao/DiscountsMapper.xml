@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.housekeeping.dao.DiscountsMapper">
+    <resultMap id="DiscountsMap" type="com.project.housekeeping.pojo.Discounts">
+        <id column="id" property="id"/>
+        <result column="discount_type" property="discountType"/>
+        <result column="discount_money" property="discountMoney"/>
+        <result column="first_impose" property="firstImpose"/>
+        <result column="superposition" property="superposition"/>
+        <result column="discount_count" property="discountCount"/>
+        <result column="use_date" property="useDate"/>
+        <result column="status" property="status"/>
+        <association property="service" javaType="com.project.housekeeping.pojo.Service">
+            <id column="id" property="id"/>
+            <result column="service_scope" property="serviceScope"/>
+        </association>
+    </resultMap>
+    <select id="SelectAllDiscounts" resultMap="DiscountsMap">
+        SELECT * FROM discounts AS d,service AS s WHERE d.`service_id`=s.`id` LIMIT #{page},#{size}
+    </select>
+    <select id="count" resultType="int">
+        SELECT COUNT(*) FROM discounts
+    </select>
+    <insert id="DiscountsAdd" parameterType="com.project.housekeeping.pojo.Discounts">
+        INSERT INTO discounts(service_id,discount_type,discount_money,min_money,first_impose,superposition,discount_count,use_date)
+        VALUES(#{serviceId},#{discountType},#{discountMoney},#{minMoney},#{firstImpose},#{superposition},#{discountCount},#{useDate})
+    </insert>
+    <update id="UpdateUpperShelf" parameterType="int">
+        UPDATE discounts SET `status`=1 WHERE id=#{id}
+    </update>
+    <update id="UpdateLowerShelf" parameterType="int">
+        UPDATE discounts SET `status`=2 WHERE id=#{id}
+    </update>
+    <delete id="DiscountsDel" parameterType="int">
+        DELETE FROM discounts WHERE id=#{id}
+    </delete>
+</mapper>

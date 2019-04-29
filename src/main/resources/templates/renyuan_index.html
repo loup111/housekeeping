@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    <h2 align="center">人员管理</h2>
+    <div>
+        <input type="button" value="全部" id="all">
+        <input type="button" value="可预约" id="subscribe">
+        <input type="button" value="工作中" id="working">
+        <input type="button" value="已禁用" id="forbidden">
+    </div>
+    <br>
+    <div>
+        <form method="post" action="">
+            姓名：<input type="text" id="name">
+            性别：
+                <select id="sex">
+                    <option value="0">请选择</option>
+                    <option value="1">男</option>
+                    <option value="2">女</option>
+                </select>
+            学历：
+                <select id="degree">
+                    <option value="0">请选择</option>
+                    <option value="1">研究生</option>
+                    <option value="2">本科</option>
+                    <option value="3">大专</option>
+                    <option value="4">高中</option>
+                    <option value="5">高中以下</option>
+                </select>
+            婚姻状况：
+                <select id="marital">
+                    <option value="0">请选择</option>
+                    <option value="1">研究生</option>
+                    <option value="2">本科</option>
+                    <option value="3">大专</option>
+                    <option value="4">高中</option>
+                    <option value="5">高中以下</option>
+                </select>
+            健康证：
+                <select id="health">
+                    <option value="0">请选择</option>
+                    <option value="1">有</option>
+                    <option value="2">无</option>
+                </select>
+            年龄：<input type="text" id="age">
+            <input type="submit" value="查询">
+        </form>
+    </div>
+    <br>
+    <table border="1px" width="1015">
+        <tr>
+            <td>姓名</td>
+            <td>性别</td>
+            <td>手机号码</td>
+            <td>学历</td>
+            <td>婚姻状况</td>
+            <td>健康证</td>
+            <td>年龄</td>
+            <td>好评</td>
+            <td>状态</td>
+            <td>操作</td>
+        </tr>
+        <tr th:each="inqu:${inquire}">
+            <td th:text="${inqu.name}"></td>
+            <td th:text="${inqu.set}"></td>
+            <td th:text="${inqu.phone}"></td>
+            <td th:text="${inqu.degree}"></td>
+            <td th:text="${inqu.marital}"></td>
+            <td th:text="${inqu.health}"></td>
+            <td th:text="${inqu.age}"></td>
+            <td th:text="${inqu.reputation}"></td>
+            <td th:text="${inqu.state}"></td>
+            <td>
+                <a>修改</a>
+                <a>删除</a>
+            </td>
+        </tr>
+    </table>
+    <div>
+        <a href="ye?pages=1">首页</a>
+        <a th:href="@{/ye(pages=${page.jilu-1})}">《</a>
+        <span th:each="i:${#numbers.sequence(1,page.zongtiao)}">
+        <a th:href="@{/ye(pages=${i})}" th:text="${i}"></a>
+        </span>
+        <a th:href="@{/ye(pages=${page.jilu+1})}">》</a>
+        <a th:href="@{/ye(pages=${page.zongtiao})}">末页</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.housekeeping.dao.ComplainMapper">
+    <resultMap id="ComplainMap" type="com.project.housekeeping.pojo.Complaint">
+        <id column="id" property="id"/>
+        <result column="order_id" property="orderId"/>
+        <result column="comp_man" property="compMan"/>
+        <result column="phone" property="phone"/>
+        <result column="comp_date" property="compDate"/>
+        <result column="comp_from" property="compFrom"/>
+        <result column="comp_type" property="compType"/>
+        <result column="comp_content" property="compContent"/>
+    </resultMap>
+
+    <select id="SelectAllComplains" resultMap="ComplainMap">
+        select * from complaint
+        <if test="status!=null and status!=''">
+            where processing_status=#{status}
+        </if>
+        limit #{page},#{size}
+    </select>
+    <select id="count" resultType="int">
+        select count(*) from complaint
+    </select>
+</mapper>

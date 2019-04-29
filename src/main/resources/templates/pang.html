@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-1.8.3.min.js"></script>
+    <script>
+        function confirmd(id) {
+            if(confirm("是否要派人")){
+                location.href="pairen?id="+id;
+            }
+        }
+    </script>
+</head>
+
+<body>
+<a href="index">待接单<span th:text="${co}"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="selectdai">待派人<span th:text="${coo}"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="fuwu">服务<span th:text="${coco}"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="cheng">已完成<span th:text="${cococo}"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="xiao">已取消<span th:text="${cocoo}"></span></a>
+<form method="post" action="chaxun">
+    订单编号:<input type="text" name="order_id">
+    服务类型:<select name="servicename">
+    <option value="">请选择</option>
+    <option th:each="li:${lei}" th:value="${li.servicename}" th:text="${li.servicename}"></option>
+</select>
+    <br/>
+    服务人员:<input type="text" name="name">
+    <input type="submit" value="查询">
+</form>
+<table border="1">
+    <tr>
+        <td>订单编号</td>
+        <td>服务类型</td>
+        <td>服务项目</td>
+        <td>人员状态</td>
+        <td>服务人员</td>
+        <td>面试时间</td>
+        <td>服务时间</td>
+        <td>合计金额</td>
+        <td>操作</td>
+    </tr>
+    <tr th:each="li:${list}">
+        <td th:text="${li.order_id}"></td>
+        <td th:text="${li.servicename}"></td>
+        <td th:text="${li.service_scope}"></td>
+        <td th:text="${li.state}"></td>
+        <td th:text="${li.name}"></td>
+        <td th:text="${li.interview_date}"></td>
+        <td th:text="${li.server_date}"></td>
+        <td th:text="${li.num_money}"></td>
+        <td>&nbsp;&nbsp;&nbsp;<a th:href="@{/selectchas(id=${li.id})}">查看订单</a>&nbsp;&nbsp;&nbsp;
+            <a th:href="'javascript:confirmd('+${li.id}+')'">服务</a>
+        </td>
+    </tr>
+</table>
+
+<a href="yes?pages=1">首页</a>
+<a th:href="@{/yes(pages=${page.jilu-1})}">《</a>
+<span th:each="i:${#numbers.sequence(1,page.zongtiao)}">
+        <a th:href="@{/yes(pages=${i})}" th:text="${i}"></a>
+    </span>
+<a th:href="@{/yes(pages=${page.jilu+1})}">》</a>
+<a th:href="@{/yes(pages=${page.zongtiao})}">末页</a>
+
+</body>
+</html>

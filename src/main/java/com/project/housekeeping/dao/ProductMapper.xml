@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.housekeeping.dao.ProductMapper">
+    <!--所有商品查询 + 名字模糊查询-->
+    <select id="productAll" resultType="com.project.housekeeping.pojo.Product">
+      select * from product where 1=1
+      <if test="name!=null || name!=''">
+        AND  pr_name like concat('%',#{name},'%')
+      </if>
+        limit #{pageNo},#{pageSize}
+    </select>
+
+    <!--查看详情-->
+    <select id="packages" resultType="com.project.housekeeping.pojo.Product">
+      select * from product where id = #{id}
+    </select>
+    <!--查询所有数据-->
+    <select id="geProduct" resultType="Long">
+        SELECT count(*) FROM t_company_packages WHERE 1=1
+        <if test="name!=null || name!=''">
+            AND  pr_name like concat('%',#{name},'%')
+        </if>
+        limit #{pageNo},#{pageSize}
+    </select>
+    <!--删除删除-->
+    <delete id="productDel">
+       delete from product where id  = #{id}
+    </delete>
+    <!--添加用户-->
+    <insert id="productAdd">
+        INSERT INTO product(service_item,pr_name ,price_min,price_max,introduce,discount
+        <if test="discount != 0 ">
+            ,price_discount
+        </if>
+        )
+        VALUES(#{service_item},#{name} ,#{price_min},#{price_max},#{thumbnail},#{discounted}
+        <if test="discount != 0">
+          ,#{price_discount}
+        </if>
+        )
+    </insert>
+    <!--修改用户-->
+    <update id="productUpd">
+      UPDATE product
+      SET service_item=#{service_item},
+        pr_name = #{name},
+        price_min = #{price_min},price_max=#{price_max},introduce=#{introduce},discount=#{discount}
+        <if test="discounted != 0 ">
+            ,price_discount=#{price_discount}
+        </if>
+      WHERE id = #{id}
+    </update>
+    <!--上下架操作-->
+    <update id="frames">
+        update t_company_packages
+        set state = #{num}
+        where id = #{id}
+    </update>
+</mapper>

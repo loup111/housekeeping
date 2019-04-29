@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-1.8.3.min.js"></script>
+    <script>
+        $(function () {
+            $("#xiao").click(function () {
+                location.href="index";
+            })
+        })
+    </script>
+</head>
+<body>
+<form action="xiugai" method="post" id="myform">
+    <input type="hidden" name="id" th:value="${op.id}">
+    订单编号:<input type="text" name="order_id" th:value="${op.order_id}">
+    服务类型:<select name="server_type">
+                <option th:each="li:${lists}" th:value="${li.id}" th:if="${li.servicename==op.servicename}" selected="selected" >
+                    <span th:text="${li.servicename}"></span>
+                </option>
+                <option th:each="li:${lists}" th:value="${li.id}" th:if="${li.servicename!=op.servicename}">
+                    <span th:text="${li.servicename}"></span>
+                </option>
+             </select><br/>
+
+    服务项目:<select name="server_project">
+    <option th:each="ser:${services}" th:value="${ser.id}" th:if="${ser.service_scope==op.service_scope}" selected="selected" >
+        <span th:text="${ser.service_scope}"></span>
+    </option>
+    <option th:each="ser:${services}" th:value="${ser.id}" th:if="${ser.service_scope!=op.service_scope}">
+        <span th:text="${ser.service_scope}"></span>
+    </option>
+             </select>
+    人员状态:<select name="staff_state">
+    <option th:each="sea:${state}" th:value="${sea.id}" th:if="${sea.state==op.state}" selected="selected" >
+        <span th:text="${sea.state}"></span>
+    </option>
+    <option th:each="sea:${state}" th:value="${sea.id}" th:if="${sea.state!=op.state}" >
+        <span th:text="${sea.state}"></span>
+    </option>
+</select>
+    <br/>
+    服务人员:
+    <select name="staff_service">
+        <option th:each="aff:${staff}" th:value="${aff.id}" th:if="${aff.name==op.name}" selected="selected" >
+            <span th:text="${aff.name}"></span>
+        </option>
+        <option th:each="aff:${staff}" th:value="${aff.id}" th:if="${aff.name!=op.name}" >
+            <span th:text="${aff.name}"></span>
+        </option>
+    </select>
+    合计金额:<input type="text" name="num_money" th:value="${op.num_money}"><br/>
+    <input type="submit" value="修改">
+    <input type="button" value="取消" id="xiao">
+</form>
+</body>
+</html>

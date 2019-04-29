@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>新增优惠</title>
+</head>
+<body>
+    <form method="post" action="/discountadd">
+        <div>
+            <div>
+                服务范围<br/>
+                <input type="radio" name="serviceId" value="1">月嫂服务<input type="radio" name="serviceId" value="2">医院陪护
+                <input type="radio" name="serviceId" value="3">催乳服务<input type="radio" name="serviceId" value="4">产品护理
+                <input type="radio" name="serviceId" value="5">育婴服务<br/><input type="radio" name="serviceId" value="6">小儿推拿
+                <input type="radio" name="serviceId" value="7">养老服务<input type="radio" name="serviceId" value="8">日式介护
+                <input type="radio" name="serviceId" value="9">病患护理<input type="radio" name="serviceId" value="10">保洁
+            </div>
+            <br/>
+            <div>
+                优惠类型&nbsp;&nbsp;<input type="radio" name="discountType" value="1">折扣券<input type="radio" name="discountType" value="2">现金券&nbsp;&nbsp;
+                折扣金额&nbsp;&nbsp;<select name="discountMoney">
+                    <option value="5折">5折</option><option value="6折">6折</option><option value="7折">7折</option><option value="8折">8折</option><option value="9折">8折</option></select>
+            </div>
+            <br/>
+            <div>
+                最低消费&nbsp;&nbsp;<input name="minMoney" type="text"/>
+            </div>
+            <br/>
+            <div>
+                限制首次&nbsp;&nbsp;<input type="radio" name="firstImpose" value="1">是<input type="radio" name="firstImpose" value="2">否&nbsp;&nbsp;允许叠加&nbsp;&nbsp;<input type="radio" name="superposition" value="1">是<input type="radio" name="superposition" value="2">否
+            </div>
+            <br/>
+            <div>.
+                优惠数量&nbsp;&nbsp;<input name="discountCount" type="text"/>&nbsp;&nbsp;使用时间&nbsp;&nbsp;<input name="useDate" type="date"/>
+            </div>
+            <br/>
+            <div><input type="submit" value="保存">&nbsp;&nbsp;<a href="selectalldiscounts"><input type="button" value="关闭"></a></div>
+        </div>
+    </form>
+</body>
+</html>`

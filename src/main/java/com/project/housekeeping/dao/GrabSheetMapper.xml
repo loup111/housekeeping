@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.housekeeping.dao.GrabSheetMapper">
+    <resultMap id="GrabMap" type="com.project.housekeeping.pojo.Grabsheet">
+        <id column="id" property="id"/>
+        <result column="order_id" property="orderId"/>
+        <result column="budget" property="budget"/>
+        <result column="interview_time" property="interviewTime"/>
+        <result column="service_address" property="serviceAddress"/>
+        <result column="payment_status" property="paymentStatus"/>
+        <association property="service" javaType="com.project.housekeeping.pojo.Service">
+            <id column="id" property="id"></id>
+            <result column="service_scope" property="serviceScope"/>
+        </association>
+    </resultMap>
+    <select id="SelectAllGrab" resultMap="GrabMap">
+        SELECT * FROM grabsheet AS g,service AS s WHERE g.`service_id`=s.`id`
+        <if test="status!=null and status!=''">
+            AND singling_status=#{status}
+        </if>
+        LIMIT #{page},#{size}
+    </select>
+    <select id="count" resultType="int">
+        SELECT COUNT(*) FROM grabsheet
+    </select>
+</mapper>
