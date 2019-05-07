@@ -2,7 +2,6 @@ package com.project.housekeeping.service;
 
 import com.project.housekeeping.dao.StaffMapper;
 import com.project.housekeeping.pojo.Staff;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
@@ -12,28 +11,11 @@ public class StaffService {
     @Resource
     StaffMapper staffMapper;
 
-    List<Staff> staffcha(
-            @Param("name") String name,
-            @Param("set") int set,
-            @Param("degree") String degree,
-            @Param("marital") String marital,
-            @Param("health") String health,
-            @Param("age") int age,
-            @Param("pageNo") int pageNo,
-            @Param("pageSize") int pageSize,
-            @Param("state") int state){
-        return staffMapper.staffcha(name,set,degree,marital,health,age,pageNo,pageSize,state);
+    public List<Staff> staffcha(String name,int set,String degree,String marital,String health,int ante_age,int under_age,int pageNo,int pageSiz){
+        return staffMapper.staffcha(name,set,degree,marital,health,ante_age,under_age,pageNo,pageSiz);
     }
 
-    int currentPage(
-            @Param("name") String name,
-            @Param("set") int set,
-            @Param("degree") String degree,
-            @Param("marital") String marital,
-            @Param("health") String health,
-            @Param("age") int age,
-            @Param("state") int state){
-        return staffMapper.currentPage(name,set,degree,marital,health,age,state);
+    public int count(String name,int set,String degree,String marital,String health,int ante_age,int under_age){
+        return staffMapper.count(name,set,degree,marital,health,ante_age,under_age);
     }
-
 }

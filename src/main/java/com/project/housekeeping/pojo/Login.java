@@ -6,15 +6,15 @@ public class Login {
   private long id;
   private String nickname;
   private String password;
-  private java.sql.Timestamp sDate;
+  private String sDate;
   private long company;
   private String loginName;
   private String userName;
   private String phone;
   private String mobile;
-  private java.sql.Timestamp startDate;
-  private java.sql.Timestamp endDate;
-  private long service;
+  private String startDate;
+  private String endDate;
+  private String service;
   private String address;
   private String referra;
   private long status;
@@ -47,11 +47,11 @@ public class Login {
   }
 
 
-  public java.sql.Timestamp getSDate() {
+  public String getSDate() {
     return sDate;
   }
 
-  public void setSDate(java.sql.Timestamp sDate) {
+  public void setSDate(String sDate) {
     this.sDate = sDate;
   }
 
@@ -101,29 +101,29 @@ public class Login {
   }
 
 
-  public java.sql.Timestamp getStartDate() {
+  public String getStartDate() {
     return startDate;
   }
 
-  public void setStartDate(java.sql.Timestamp startDate) {
+  public void setStartDate(String startDate) {
     this.startDate = startDate;
   }
 
 
-  public java.sql.Timestamp getEndDate() {
+  public String getEndDate() {
     return endDate;
   }
 
-  public void setEndDate(java.sql.Timestamp endDate) {
+  public void setEndDate(String endDate) {
     this.endDate = endDate;
   }
 
 
-  public long getService() {
+  public String getService() {
     return service;
   }
 
-  public void setService(long service) {
+  public void setService(String service) {
     this.service = service;
   }
 

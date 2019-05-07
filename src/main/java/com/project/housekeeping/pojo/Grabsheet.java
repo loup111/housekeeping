@@ -6,7 +6,7 @@ public class Grabsheet {
   private long id;
   private long orderId;
   private long serviceId;
-  private Service service;
+  private String service;
   private long budget;
   private java.sql.Timestamp interviewTime;
   private long paymentStatus;
@@ -37,11 +37,11 @@ public class Grabsheet {
     this.id = id;
   }
 
-  public Service getService() {
+  public String getService() {
     return service;
   }
 
-  public void setService(Service service) {
+  public void setService(String service) {
     this.service = service;
   }
 

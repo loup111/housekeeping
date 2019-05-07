@@ -1,13 +1,9 @@
 package com.project.housekeeping.controller;
-
-import com.project.housekeeping.dao.StaffMapper;
-import com.project.housekeeping.pojo.Page;
 import com.project.housekeeping.pojo.Staff;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.messaging.handler.annotation.MessageMapping;
+import com.project.housekeeping.service.StaffService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
@@ -17,8 +13,9 @@ import java.util.List;
 @Controller
 public class StaffController {
     @Resource
-    StaffMapper staffMapper;
-    @MessageMapping("/staff")
+    StaffService staffService;
+
+    @RequestMapping("/staffsurface")
     public Object Staffsurface(
             Model model,
             HttpServletRequest request,
@@ -27,19 +24,23 @@ public class StaffController {
             @RequestParam(value = "degree") String degree,
             @RequestParam(value = "marital") String marital,
             @RequestParam(value = "health") String health,
-            @RequestParam(value = "age") int age,
-            @RequestParam(value = "pageNo") int currentPage,
-            @RequestParam(value = "state") int state
+            @RequestParam(value = "ante_age") int ante_age,
+            @RequestParam(value = "under_age") int under_age,
+            @RequestParam(value = "pageNo") int pageNo,
+            @RequestParam(value = "pageSize") int pageSize,
+            @RequestParam(value="yeishu",required=false)String yeishu
             ){
-        Page page=new Page();
-        page.setJilu(1);
-        int cou=staffMapper.currentPage(name,set,degree,marital,health,age,state);
-        page.setTiaoshu(cou);
-        Integer co=staffMapper.currentPage(name,set,degree,marital,health,age,state);
-        List<Staff> inquire = staffMapper.staffcha(name,set,degree,marital,health,age,page.getPagesize(),(page.getJilu()-1)*page.getPagesize(),state);
-        request.setAttribute("inquire",inquire);
-        request.setAttribute("zong",cou);
-        request.setAttribute("start",currentPage);
-        return "renyuan_index";
+        int size = 1;
+        int paze = 3;
+        int tiaoshu = staffService.count(name,set,degree,marital,health,ante_age,under_age);
+        if(yeishu!=null){
+            size = Integer.valueOf(yeishu);
+        }
+        int tiaojian=tiaoshu%paze==0?tiaoshu/paze:(tiaoshu/paze)+1;
+        List<Staff> xian1 = staffService.staffcha(name,set,degree,marital,health,ante_age,under_age,(size-1)*paze,paze);
+        model.addAttribute("zongshu", tiaojian);
+        model.addAttribute("size", size);
+        model.addAttribute("chaxun", xian1);
+        return "select";
     }
 }
