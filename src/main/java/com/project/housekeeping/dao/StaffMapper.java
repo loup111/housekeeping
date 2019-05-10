@@ -11,22 +11,24 @@ public interface StaffMapper {
 
     List<Staff> staffcha(
              @Param("name") String name,
-             @Param("set") int set,
-             @Param("degree") String degree,
-             @Param("marital") String marital,
-             @Param("health") String health,
-             @Param("age") int ante_age,
-             @Param("age") int under_age,
+             @Param("sex") Integer sex,
+             @Param("degree") Integer degree,
+             @Param("marital") Integer marital,
+             @Param("health") Integer health,
+             @Param("ante_age") Integer ante_age,
+             @Param("under_age") Integer under_age,
              @Param("pageNo") int pageNo,
              @Param("pageSize") int pageSize
              );
-    int count(
+    Integer count(
               @Param("name") String name,
-              @Param("set") int set,
-              @Param("degree") String degree,
-              @Param("marital") String marital,
-              @Param("health") String health,
-              @Param("age") int ante_age,
-              @Param("age") int under_age
+              @Param("sex") Integer sex,
+              @Param("degree") Integer degree,
+              @Param("marital") Integer marital,
+              @Param("health") Integer health,
+              @Param("ante_age") Integer ante_age,
+              @Param("under_age") Integer under_age
               );
+    /*int count();
+    List<Staff> staffcha();*/
 }
